@@ -13,7 +13,7 @@ I always look for ways to improve the runtime performance and memory efficiency 
 
 i) Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [9]. 
 
-i) Training BNN: The toolkit [10] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+ii) Training BNN: The toolkit [10] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
 iii) Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
 
