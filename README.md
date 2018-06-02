@@ -2,7 +2,8 @@
 
 Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the learning and planning framework [2] that (i) learns the state transition function of a factored [3] planning problem using Binarized Neural Networks [4] from data, and (ii) compiles the sequence of learned transition functions into CNF and solves it using off-the-shelf SAT solver [5]. FD-SAT-Plan can handle both discrete and continuous action/state spaces and arbitrarily complex state transition functions.
 
-![alt text](hdmilpplan.png "Title" = a)
+![alt text](hdmilpplan.png)
+Visualization of the learning and planning framework presented in [2] where red circles represent action variables, blue circles represent state variables, gray circles represent the activation units and w's represent the weights of the neural network.
 
 ## Improvements
 
