@@ -50,7 +50,7 @@ def readNormalization(directory, layers):
 
     return normalization
 
-def encode_fd_maxsat_plan(domain, instance, horizon):
+def encode_fd_sat_plan(domain, instance, horizon):
     
     weights, layers = readBNN("./bnn_"+domain+"_"+instance+".txt")
     normalization = readNormalization("./normalization_"+domain+"_"+instance+".txt", layers)
@@ -403,5 +403,5 @@ if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
 
-    encode_hd_maxsat_plan("navigation", "3x3", 4)
-    #encode_hd_maxsat_plan("navigation", "4x3", 6)
+    encode_fd_sat_plan("navigation", "3x3", 4)
+    #encode_fd_sat_plan("navigation", "4x3", 6)
