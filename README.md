@@ -7,7 +7,7 @@ Figure 1: Visualization of the learning and planning framework presented in [2] 
 
 ## Improvements
 
-I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to smarter encodings of the binarized activation functions. Namely, 
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
 
 i) cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] instead of cardinality networks [6]). 
 
@@ -28,7 +28,7 @@ Example bnn.txt and normalization.txt files are provided for navigation domain. 
 ## References
 [1] Buser Say, Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](./bnn-planning-factored.pdf). In 27th IJCAI-ECAI, 2018.
 
-[2] Buser Say, Ga Wu, Yu Qing Zhou, and Scott Sanner. Nonlinear hybrid planning with deep net learned transition models and mixed-integer linear programming. In 26th IJCAI, pages 750–756, 2017.
+[2] Buser Say, Ga Wu, Yu Qing Zhou, and Scott Sanner. [Nonlinear hybrid planning with deep net learned transition models and mixed-integer linear programming](http://static.ijcai.org/proceedings-2017/0104.pdf). In 26th IJCAI, pages 750–756, 2017.
 
 [3] Craig Boutilier, Thomas Dean, and Steve Hanks. Decision-theoretic planning: Structural assumptions and computational leverage. JAIR, 11(1):1–94, 1999.
 
