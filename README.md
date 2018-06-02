@@ -4,13 +4,13 @@ Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the 
 
 ## Improvements
 
-
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to 
 
 ## Dependencies
 
-Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [6]. 
+Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [8]. 
 
-Training BNN: The publicly available code [7] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+Training BNN: The publicly available code [9] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
 Compilation to CNF: 
 
@@ -27,6 +27,12 @@ Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT
 
 [5] Gilles Audemard and Laurent Simon. Lazy Clause Exchange Policy for Parallel SAT Solvers, pages 197–205. Springer Int. Publishing, 2014.
 
-[6]
+[6] Roberto Asin, Robert Nieuwenhuis, Albert Oliveras, Enric Rodriguez-Carbonell, Cardinality Networks and their Applications. International Conference on Theory and Applications of Satisfiability Testing, pages 167-180, 2009.
 
-[7]
+[7] Carsten Sinz. Towards an Optimal CNF Encoding of Boolean Cardinality Constraints, pages 827–831. Springer Berlin Heidelberg, Berlin, Heidelberg, 2005
+
+[8] Relational dynamic influence diagram language (rddl): Language description. 2010.
+
+[9] https://github.com/MatthieuCourbariaux/BinaryConnect
+
+[10]
