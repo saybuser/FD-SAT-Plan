@@ -25,6 +25,12 @@ iv) Solver: Any off-the-shelf SAT solver works. In our paper [1], we used Glucos
 
 Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the planner, you will only need iii) and iv).
 
+## Running FD-SAT-Plan
+
+python fd_maxsat_plan.py
+
+./glucose-syrup-4.1/simp/glucose ./navigation4.cnf ./navigation4.output
+
 ## References
 [1] Buser Say, Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](./bnn-planning-factored.pdf). In 27th IJCAI-ECAI, 2018.
 
