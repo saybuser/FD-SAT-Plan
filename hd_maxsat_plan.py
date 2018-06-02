@@ -403,6 +403,5 @@ if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
 
+    encode_hd_maxsat_plan("navigation", "3x3", 4)
     encode_hd_maxsat_plan("navigation", "4x3", 6)
-    #encode_hd_maxsat_plan('inventory', '1', 8, "./bnn.txt")
-    #encode_hd_maxsat_plan('sys_admin', '1', 4, "./bnn.txt")
