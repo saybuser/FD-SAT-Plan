@@ -71,6 +71,9 @@ def encode_fd_sat_plan(domain, instance, horizon):
         A = ['move-east', 'move-north', 'move-south', 'move-west']
         S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
         SPrime = S
+    else:
+        print 'Domain not recongnized!'
+        return
 
     formula = OptimizedLevelWeightedFormula()
 
