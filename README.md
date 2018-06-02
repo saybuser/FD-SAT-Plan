@@ -26,7 +26,7 @@ iv) Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose
 Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the planner, you will only need iii) and iv).
 
 ## References
-[1] Buser Say, Scott Sanner. Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models. In 27th IJCAI-ECAI, 2018.
+[1] Buser Say, Scott Sanner. Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models. In 27th IJCAI-ECAI, 2018. link: https://github.com/saybuser/FD-SAT-Plan/bnn-planning-factored.pdf
 
 [2] Buser Say, Ga Wu, Yu Qing Zhou, and Scott Sanner. Nonlinear hybrid planning with deep net learned transition models and mixed-integer linear programming. In 26th IJCAI, pages 750–756, 2017.
 
