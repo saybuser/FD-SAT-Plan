@@ -2,6 +2,20 @@
 
 Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the learning and planning framework [2] that (i) learns the state transition function of a factored [3] planning problem using Binarized Neural Networks [4] from data, and (ii) compiles the sequence of learned transition functions into CNF and solve it using off-the-shelf SAT solver [5].
 
+## Improvements
+
+
+
+## Dependencies
+
+Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [6]. 
+
+Training BNN: The publicly available code [7] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+
+Compilation to CNF: 
+
+Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
+
 ## References
 [1] Buser Say, Scott Sanner. Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models. In 27th IJCAI-ECAI, 2018.
 
@@ -12,3 +26,7 @@ Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the 
 [4] Itay Hubara, Matthieu Courbariaux, Daniel Soudry, Ran El-Yaniv, and Yoshua Bengio. Binarized neural networks. In 29th NIPS, pages 4107–4115. Curran Associates, Inc., 2016.
 
 [5] Gilles Audemard and Laurent Simon. Lazy Clause Exchange Policy for Parallel SAT Solvers, pages 197–205. Springer Int. Publishing, 2014.
+
+[6]
+
+[7]
