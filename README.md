@@ -16,7 +16,7 @@ iii) Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to writ
 
 iv) Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
 
-Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the code, you will only need iii) and iv).
+Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the planner, you will only need iii) and iv).
 
 ## References
 [1] Buser Say, Scott Sanner. Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models. In 27th IJCAI-ECAI, 2018.
