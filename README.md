@@ -21,7 +21,7 @@ ii) Training BNN: The toolkit [10] is used to train BNNs. The final training par
 
 iii) Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
 
-iv) Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
+iv) Solver: Any off-the-shelf SAT solver works. In our paper [1], we used Glucose SAT solver [5].
 
 Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the planner, you will only need iii) and iv).
 
