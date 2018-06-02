@@ -50,7 +50,7 @@ def readNormalization(directory, layers):
 
     return normalization
 
-def encode_hd_maxsat_plan(domain, instance, horizon):
+def encode_fd_maxsat_plan(domain, instance, horizon):
     
     weights, layers = readBNN("./bnn_"+domain+"_"+instance+".txt")
     normalization = readNormalization("./normalization_"+domain+"_"+instance+".txt", layers)
