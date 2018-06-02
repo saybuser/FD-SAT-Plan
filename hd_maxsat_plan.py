@@ -115,7 +115,7 @@ def encode_hd_maxsat_plan(domain, instance, horizon):
     # Set initial state
     for s in S:
         if domain == "navigation" and instance == "3x3" and s == 'robot-at[$x14| $y20]':
-            formula.addClause([y[(s,horizon)]])
+            formula.addClause([y[(s,0)]])
         elif domain == "navigation" and instance == "4x3" and  s == 'robot-at[$x14| $y12]':
             formula.addClause([y[(s,0)]])
         else:
