@@ -44,6 +44,6 @@ Example bnn.txt and normalization.txt files are provided for navigation domain. 
 
 [9] Scott Sanner. Relational dynamic influence diagram language (rddl): Language description. 2010.
 
-[10] https://github.com/MatthieuCourbariaux/BinaryConnect
+[10] Matthieu Courbariaux. BinaryNet. https://github.com/MatthieuCourbariaux/BinaryNet
 
-[11] https://bitbucket.org/haz/krtoolkit/wiki/Home
+[11] Christian Muise. KR Toolkit: Knowledge Representation AI Toolkit. https://bitbucket.org/haz/krtoolkit/wiki/Home
