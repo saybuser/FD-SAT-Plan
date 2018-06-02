@@ -4,7 +4,7 @@ Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the 
 
 ## Improvements
 
-I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to 
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] are currently used to replace the sequential cardinality [7] constraints used in [1].  
 
 ## Dependencies
 
