@@ -4,15 +4,15 @@ Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the 
 
 ## Improvements
 
-I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] are currently used to replace the sequential cardinality [7] constraints used in [1].  
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] instead of cardinality networks[6]). Further, cardinality constraints (i.e., sum_1..i..n x_i >= k) are inverted (i.e., sum_1..i..n -x_i <= n-k) when k > n/2.
 
 ## Dependencies
 
-Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [8]. 
+Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [9]. 
 
-Training BNN: The publicly available code [9] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+Training BNN: The toolkit [10] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
-Compilation to CNF: 
+Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
 
 Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
 
@@ -31,8 +31,10 @@ Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT
 
 [7] Carsten Sinz. Towards an Optimal CNF Encoding of Boolean Cardinality Constraints, pages 827–831. Springer Berlin Heidelberg, Berlin, Heidelberg, 2005
 
-[8] Relational dynamic influence diagram language (rddl): Language description. 2010.
+[8] Nina Narodytska, Shiva Prasad Kasiviswanathan, Leonid Ryzhyk, Mooly Sagiv, Toby Walsh. Verifying Properties of Binarized Deep Neural Networks. In 32nd AAAI, pages 6615-6624.
 
-[9] https://github.com/MatthieuCourbariaux/BinaryConnect
+[9] Relational dynamic influence diagram language (rddl): Language description. 2010.
 
-[10]
+[10] https://github.com/MatthieuCourbariaux/BinaryConnect
+
+[11] https://bitbucket.org/haz/krtoolkit/wiki/Home
