@@ -8,13 +8,15 @@ I always look for ways to improve the runtime performance and memory efficiency 
 
 ## Dependencies
 
-Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [9]. 
+i) Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [9]. 
 
-Training BNN: The toolkit [10] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+i) Training BNN: The toolkit [10] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
-Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
+iii) Compilation to CNF: The toolkit [11] is called in hd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
 
-Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
+iv) Solver: Any off-the-shelf SAT solver works. In our work [1], we used Glucose SAT solver [5].
+
+Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the code, you will only need iii) and iv).
 
 ## References
 [1] Buser Say, Scott Sanner. Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models. In 27th IJCAI-ECAI, 2018.
