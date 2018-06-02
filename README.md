@@ -2,6 +2,8 @@
 
 Factored Deep SAT Planner (FD-SAT-Plan) [1] is a two-stage planner based on the learning and planning framework [2] that (i) learns the state transition function of a factored [3] planning problem using Binarized Neural Networks [4] from data, and (ii) compiles the sequence of learned transition functions into CNF and solves it using off-the-shelf SAT solver [5]. FD-SAT-Plan can handle both discrete and continuous action/state spaces and arbitrarily complex state transition functions.
 
+![alt text](https://raw.githubusercontent.com/saybuser/FD-SAT-Plan/hdmilpplan.png)
+
 ## Improvements
 
 I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to smarter encodings of the binarized activation functions. Namely, cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] instead of cardinality networks[6]). Further, cardinality constraints (i.e., sum_1..i..n x_i >= k) are inverted (i.e., sum_1..i..n -x_i <= n-k) when k > n/2.
