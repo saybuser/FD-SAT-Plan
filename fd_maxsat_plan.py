@@ -93,7 +93,13 @@ def encode_fd_sat_plan(domain, instance, horizon):
             SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
         else:
             print 'Instance not recongnized!'
-
+    elif domain == "sysadmin":
+        if instance == "5":
+            A = ['reboot[$c1]', 'reboot[$c2]', 'reboot[$c3]', 'reboot[$c4]', 'reboot[$c5]']
+            S = ['running[$c1]', 'running[$c2]', 'running[$c3]', 'running[$c4]', 'running[$c5]', 'age[$c1]_bit_2', 'age[$c1]_bit_1', 'age[$c2]_bit_2', 'age[$c2]_bit_1', 'age[$c3]_bit_2', 'age[$c3]_bit_1', 'age[$c4]_bit_2', 'age[$c4]_bit_1', 'age[$c5]_bit_2', 'age[$c5]_bit_1']
+            SPrime = S
+        else:
+            print 'Instance not recongnized!'
     else:
         print 'Domain not recongnized!'
         return
@@ -162,6 +168,12 @@ def encode_fd_sat_plan(domain, instance, horizon):
                         formula.addClause([-y[(s,t)]])
                     else:
                         formula.addClause([y[(s,t)]])
+    elif domain == "sysadmin":
+        # Meet all computers must be running
+        for s in S:
+            if s == 'running[$c1]' or s == 'running[$c2]' or s == 'running[$c3]' or s == 'running[$c4]' or s == 'running[$c5]':
+                for t in range(1,horizon+1):
+                    formula.addClause([y[(s,t)]])
 
     # Set initial state
     for s in S:
@@ -176,6 +188,10 @@ def encode_fd_sat_plan(domain, instance, horizon):
                 formula.addClause([y[(s,0)]])
         elif domain == "inventory":
             formula.addClause([-y[(s,0)]])
+        elif domain == "sysadmin":
+            for s in S:
+                if s == 'running[$c1]' or s == 'running[$c2]' or s == 'running[$c3]' or s == 'running[$c4]' or s == 'running[$c5]':
+                    formula.addClause([y[(s,0)]])
         else:
             formula.addClause([-y[(s,0)]])
 
@@ -191,6 +207,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
             elif instance == "5x5" and s == 'robot-at[$x14| $y25]':
                 formula.addClause([y[(s,horizon)]])
         elif domain == "inventory":
+            continue
+        elif domain == "sysadmin":
             continue
         else:
             formula.addClause([-y[(s,horizon)]])
@@ -519,3 +537,5 @@ if __name__ == '__main__':
 
     #encode_fd_sat_plan("inventory", "1", 7)
     #encode_fd_sat_plan("inventory", "2", 8)
+
+    #encode_fd_sat_plan("sysadmin", "5", 4)
