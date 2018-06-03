@@ -87,6 +87,10 @@ def encode_fd_sat_plan(domain, instance, horizon):
             A = ['resupply[$c1]']
             S = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1', 'month_bit_1']
             SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
+        elif instance == "2":
+            A = ['resupply[$c1]']
+            S = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1', 'month_bit_2', 'month_bit_1']
+            SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
         else:
             print 'Instance not recongnized!'
 
@@ -149,6 +153,12 @@ def encode_fd_sat_plan(domain, instance, horizon):
             elif s == 'month_bit_1':
                 for t in range(1,horizon+1):
                     if t % 2 == 0:
+                        formula.addClause([-y[(s,t)]])
+                    else:
+                        formula.addClause([y[(s,t)]])
+            elif s == 'month_bit_2':
+                for t in range(1,horizon+1):
+                    if t % 4 < 2:
                         formula.addClause([-y[(s,t)]])
                     else:
                         formula.addClause([y[(s,t)]])
@@ -480,4 +490,5 @@ if __name__ == '__main__':
     #encode_fd_sat_plan("navigation", "4x4", 5)
     #encode_fd_sat_plan("navigation", "5x5", 8)
 
-    encode_fd_sat_plan("inventory", "1", 8)
+    #encode_fd_sat_plan("inventory", "1", 8)
+    encode_fd_sat_plan("inventory", "2", 8)
