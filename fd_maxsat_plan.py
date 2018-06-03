@@ -75,6 +75,10 @@ def encode_fd_sat_plan(domain, instance, horizon):
         A = ['move-east', 'move-north', 'move-south', 'move-west']
         S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
         SPrime = S
+    elif domain == "navigation" and instance == "5x5":
+        A = ['move-east', 'move-north', 'move-south', 'move-west']
+        S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x21| $y25]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x14| $y25]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x9| $y25]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]', 'robot-at[$x6| $y25]', 'robot-at[$x3| $y6]',  'robot-at[$x3| $y12]', 'robot-at[$x3| $y15]', 'robot-at[$x3| $y20]', 'robot-at[$x3| $y25]']
+        SPrime = S
     else:
         print 'Domain not recongnized!'
         return
@@ -134,6 +138,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
             formula.addClause([y[(s,0)]])
         elif domain == "navigation" and instance == "4x4" and  s == 'robot-at[$x14| $y6]':
             formula.addClause([y[(s,0)]])
+        elif domain == "navigation" and instance == "5x5" and  s == 'robot-at[$x14| $y6]':
+            formula.addClause([y[(s,0)]])
         else:
             formula.addClause([-y[(s,0)]])
 
@@ -144,6 +150,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
         elif domain == "navigation" and instance == "4x3" and s == 'robot-at[$x14| $y20]':
             formula.addClause([y[(s,horizon)]])
         elif domain == "navigation" and instance == "4x4" and s == 'robot-at[$x14| $y20]':
+            formula.addClause([y[(s,horizon)]])
+        elif domain == "navigation" and instance == "5x5" and s == 'robot-at[$x14| $y25]':
             formula.addClause([y[(s,horizon)]])
         else:
             formula.addClause([-y[(s,horizon)]])
@@ -437,4 +445,5 @@ if __name__ == '__main__':
 
     #encode_fd_sat_plan("navigation", "3x3", 4)
     #encode_fd_sat_plan("navigation", "4x3", 6)
-    encode_fd_sat_plan("navigation", "4x4", 5)
+    #encode_fd_sat_plan("navigation", "4x4", 5)
+    encode_fd_sat_plan("navigation", "5x5", 8)
