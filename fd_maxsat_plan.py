@@ -63,22 +63,33 @@ def encode_fd_sat_plan(domain, instance, horizon):
     SPrime = []
     
     #navigation
-    if domain == "navigation" and instance == "3x3":
-        A = ['move-east', 'move-north', 'move-south', 'move-west']
-        S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]']
-        SPrime = S
-    elif domain == "navigation" and instance == "4x3":
-        A = ['move-east', 'move-north', 'move-south', 'move-west']
-        S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
-        SPrime = S
-    elif domain == "navigation" and instance == "4x4":
-        A = ['move-east', 'move-north', 'move-south', 'move-west']
-        S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
-        SPrime = S
-    elif domain == "navigation" and instance == "5x5":
-        A = ['move-east', 'move-north', 'move-south', 'move-west']
-        S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x21| $y25]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x14| $y25]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x9| $y25]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]', 'robot-at[$x6| $y25]', 'robot-at[$x3| $y6]',  'robot-at[$x3| $y12]', 'robot-at[$x3| $y15]', 'robot-at[$x3| $y20]', 'robot-at[$x3| $y25]']
-        SPrime = S
+    if domain == "navigation":
+        if instance == "3x3":
+            A = ['move-east', 'move-north', 'move-south', 'move-west']
+            S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]']
+            SPrime = S
+        elif instance == "4x3":
+            A = ['move-east', 'move-north', 'move-south', 'move-west']
+            S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
+            SPrime = S
+        elif instance == "4x4":
+            A = ['move-east', 'move-north', 'move-south', 'move-west']
+            S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
+            SPrime = S
+        elif instance == "5x5":
+            A = ['move-east', 'move-north', 'move-south', 'move-west']
+            S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x21| $y25]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x14| $y25]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x9| $y25]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]', 'robot-at[$x6| $y25]', 'robot-at[$x3| $y6]',  'robot-at[$x3| $y12]', 'robot-at[$x3| $y15]', 'robot-at[$x3| $y20]', 'robot-at[$x3| $y25]']
+            SPrime = S
+        else:
+            print 'Instance not recongnized!'
+    elif domain == "inventory":
+        if instance == "1":
+            A = ['resupply[$c1]']
+            S = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1', 'month_bit_1']
+            SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
+        else:
+            print 'Instance not recongnized!'
+
     else:
         print 'Domain not recongnized!'
         return
@@ -129,30 +140,48 @@ def encode_fd_sat_plan(domain, instance, horizon):
             for s in S:
                 stateLiterals.append(y[(s,t)])
             VARINDEX, formula = addExactlyKSeq(stateLiterals, 1, formula, VARINDEX)
+    elif domain == "inventory":
+        # Meet monthly demand threshold
+        for s in S:
+            if s == 'threshold_met[$c1]':
+                for t in range(1,horizon+1):
+                    formula.addClause([y[(s,t)]])
+            elif s == 'month_bit_1':
+                for t in range(1,horizon+1):
+                    if t % 2 == 0:
+                        formula.addClause([-y[(s,t)]])
+                    else:
+                        formula.addClause([y[(s,t)]])
 
     # Set initial state
     for s in S:
-        if domain == "navigation" and instance == "3x3" and s == 'robot-at[$x14| $y20]':
-            formula.addClause([y[(s,0)]])
-        elif domain == "navigation" and instance == "4x3" and  s == 'robot-at[$x14| $y12]':
-            formula.addClause([y[(s,0)]])
-        elif domain == "navigation" and instance == "4x4" and  s == 'robot-at[$x14| $y6]':
-            formula.addClause([y[(s,0)]])
-        elif domain == "navigation" and instance == "5x5" and  s == 'robot-at[$x14| $y6]':
-            formula.addClause([y[(s,0)]])
+        if domain == "navigation":
+            if instance == "3x3" and s == 'robot-at[$x14| $y20]':
+                formula.addClause([y[(s,0)]])
+            elif instance == "4x3" and  s == 'robot-at[$x14| $y12]':
+                formula.addClause([y[(s,0)]])
+            elif instance == "4x4" and  s == 'robot-at[$x14| $y6]':
+                formula.addClause([y[(s,0)]])
+            elif instance == "5x5" and  s == 'robot-at[$x14| $y6]':
+                formula.addClause([y[(s,0)]])
+        elif domain == "inventory":
+            formula.addClause([-y[(s,0)]])
         else:
             formula.addClause([-y[(s,0)]])
 
     # Set goal state
     for s in S:
-        if domain == "navigation" and instance == "3x3" and s == 'robot-at[$x14| $y12]':
-            formula.addClause([y[(s,horizon)]])
-        elif domain == "navigation" and instance == "4x3" and s == 'robot-at[$x14| $y20]':
-            formula.addClause([y[(s,horizon)]])
-        elif domain == "navigation" and instance == "4x4" and s == 'robot-at[$x14| $y20]':
-            formula.addClause([y[(s,horizon)]])
-        elif domain == "navigation" and instance == "5x5" and s == 'robot-at[$x14| $y25]':
-            formula.addClause([y[(s,horizon)]])
+        if domain == "navigation":
+            if instance == "3x3" and s == 'robot-at[$x14| $y12]':
+                formula.addClause([y[(s,horizon)]])
+            elif instance == "4x3" and s == 'robot-at[$x14| $y20]':
+                formula.addClause([y[(s,horizon)]])
+            elif instance == "4x4" and s == 'robot-at[$x14| $y20]':
+                formula.addClause([y[(s,horizon)]])
+            elif instance == "5x5" and s == 'robot-at[$x14| $y25]':
+                formula.addClause([y[(s,horizon)]])
+        elif domain == "inventory":
+            continue
         else:
             formula.addClause([-y[(s,horizon)]])
 
@@ -446,7 +475,9 @@ if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
 
-    encode_fd_sat_plan("navigation", "3x3", 4)
+    #encode_fd_sat_plan("navigation", "3x3", 4)
     #encode_fd_sat_plan("navigation", "4x3", 6)
     #encode_fd_sat_plan("navigation", "4x4", 5)
     #encode_fd_sat_plan("navigation", "5x5", 8)
+
+    encode_fd_sat_plan("inventory", "1", 8)
