@@ -446,7 +446,7 @@ if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
 
-    #encode_fd_sat_plan("navigation", "3x3", 4)
+    encode_fd_sat_plan("navigation", "3x3", 4)
     #encode_fd_sat_plan("navigation", "4x3", 6)
     #encode_fd_sat_plan("navigation", "4x4", 5)
-    encode_fd_sat_plan("navigation", "5x5", 8)
+    #encode_fd_sat_plan("navigation", "5x5", 8)
