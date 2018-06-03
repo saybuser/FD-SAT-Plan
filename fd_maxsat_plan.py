@@ -286,11 +286,14 @@ def addExactlyKSeq(x, k, formula, VARINDEX):
     
     VARINDEX, formula = addAtMostKSeq(x, k, formula, VARINDEX)
     
-    x = [-i for i in x]
+    if k == 1:
+        formula.addClause(x)    
+    else:
+        x = [-i for i in x]
     
-    k = n - k
+        k = n - k
 
-    VARINDEX, formula = addAtMostKSeq(x, k, formula, VARINDEX)
+        VARINDEX, formula = addAtMostKSeq(x, k, formula, VARINDEX)
     
     return VARINDEX, formula
 
