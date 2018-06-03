@@ -175,6 +175,13 @@ def encode_fd_sat_plan(domain, instance, horizon):
                 for t in range(1,horizon+1):
                     formula.addClause([y[(s,t)]])
 
+        # Resource constraint on actions
+        for t in range(horizon):
+            actionLiterals = []
+            for a in A:
+                actionLiterals.append(x[(a,t)])
+            VARINDEX, formula = addAtMostKSeq(actionLiterals, int(instance)-2, formula, VARINDEX)
+
     # Set initial state
     for s in S:
         if domain == "navigation":
