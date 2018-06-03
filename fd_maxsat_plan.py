@@ -52,8 +52,8 @@ def readNormalization(directory, layers):
 
 def encode_fd_sat_plan(domain, instance, horizon):
     
-    weights, layers = readBNN("./bnn_"+domain+"_"+instance+".txt")
-    normalization = readNormalization("./normalization_"+domain+"_"+instance+".txt", layers)
+    weights, layers = readBNN("./bnn/bnn_"+domain+"_"+instance+".txt")
+    normalization = readNormalization("./normalization/normalization_"+domain+"_"+instance+".txt", layers)
     nHiddenLayers = len(layers)-1
     literals = []
     VARINDEX = 1
