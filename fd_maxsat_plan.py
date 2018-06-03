@@ -486,6 +486,31 @@ def addCardNetworkBinaryActivation(x, p, formula, VARINDEX, z): # Asin 2011 enco
 if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
+    
+    setDomain = False
+    setInstance = False
+    setHorizon = False
+    for arg in myargs:
+        if arg == "-d":
+            domain = myargs[(arg)]
+            setDomain = True
+        elif arg == "-i":
+            instance = myargs[(arg)]
+            setInstance = True
+        elif arg == "-h":
+            horizon = myargs[(arg)]
+            setHorizon = True
+
+    if setDomain and setInstance and setHorizon:
+        encode_fd_sat_plan(domain, instance, int(horizon))
+        os.system("./glucose-syrup-4.1/simp/glucose ./"+domain+"_"+instance+"_"+horizon+".cnf ./"+domain+"_"+instance+"_"+horizon+".output")
+    elif not setDomain:
+        print 'Domain not provided.'
+    elif not setInstance:
+        print 'Instance not provided.'
+    else:
+        print 'Horizon not provided.'
+
 
     #encode_fd_sat_plan("navigation", "3x3", 4)
     #encode_fd_sat_plan("navigation", "4x3", 6)
@@ -493,4 +518,4 @@ if __name__ == '__main__':
     #encode_fd_sat_plan("navigation", "5x5", 8)
 
     #encode_fd_sat_plan("inventory", "1", 8)
-    encode_fd_sat_plan("inventory", "2", 8)
+    #encode_fd_sat_plan("inventory", "2", 8)
