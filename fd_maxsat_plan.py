@@ -71,6 +71,10 @@ def encode_fd_sat_plan(domain, instance, horizon):
         A = ['move-east', 'move-north', 'move-south', 'move-west']
         S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
         SPrime = S
+    elif domain == "navigation" and instance == "4x4":
+        A = ['move-east', 'move-north', 'move-south', 'move-west']
+        S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
+        SPrime = S
     else:
         print 'Domain not recongnized!'
         return
@@ -115,11 +119,20 @@ def encode_fd_sat_plan(domain, instance, horizon):
                 actionLiterals.append(x[(a,t)])
             VARINDEX, formula = addAtMostKSeq(actionLiterals, 1, formula, VARINDEX)
 
+        # Set one-hot encoding on states
+        for t in range(horizon+1):
+            stateLiterals = []
+            for s in S:
+                stateLiterals.append(y[(s,t)])
+            VARINDEX, formula = addExactlyKSeq(stateLiterals, 1, formula, VARINDEX)
+
     # Set initial state
     for s in S:
         if domain == "navigation" and instance == "3x3" and s == 'robot-at[$x14| $y20]':
             formula.addClause([y[(s,0)]])
         elif domain == "navigation" and instance == "4x3" and  s == 'robot-at[$x14| $y12]':
+            formula.addClause([y[(s,0)]])
+        elif domain == "navigation" and instance == "4x4" and  s == 'robot-at[$x14| $y6]':
             formula.addClause([y[(s,0)]])
         else:
             formula.addClause([-y[(s,0)]])
@@ -129,6 +142,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
         if domain == "navigation" and instance == "3x3" and s == 'robot-at[$x14| $y12]':
             formula.addClause([y[(s,horizon)]])
         elif domain == "navigation" and instance == "4x3" and s == 'robot-at[$x14| $y20]':
+            formula.addClause([y[(s,horizon)]])
+        elif domain == "navigation" and instance == "4x4" and s == 'robot-at[$x14| $y20]':
             formula.addClause([y[(s,horizon)]])
         else:
             formula.addClause([-y[(s,horizon)]])
@@ -254,6 +269,20 @@ def addAtMostKSeq(x, k, formula, VARINDEX): # Sinz (2005 encoding)
         formula.addClause([-x[(i)], -s[(i-1,k-1)]])
 
     formula.addClause([-x[(n-1)], -s[(n-2,k-1)]])
+    
+    return VARINDEX, formula
+
+def addExactlyKSeq(x, k, formula, VARINDEX):
+    
+    n = len(x)
+    
+    VARINDEX, formula = addAtMostKSeq(x, k, formula, VARINDEX)
+    
+    x = [-i for i in x]
+    
+    k = n - k
+
+    VARINDEX, formula = addAtMostKSeq(x, k, formula, VARINDEX)
     
     return VARINDEX, formula
 
@@ -406,5 +435,6 @@ if __name__ == '__main__':
     import os
     myargs, flags = get_opts()
 
-    encode_fd_sat_plan("navigation", "3x3", 4)
+    #encode_fd_sat_plan("navigation", "3x3", 4)
     #encode_fd_sat_plan("navigation", "4x3", 6)
+    encode_fd_sat_plan("navigation", "4x4", 5)
