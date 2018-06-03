@@ -517,5 +517,5 @@ if __name__ == '__main__':
     #encode_fd_sat_plan("navigation", "4x4", 5)
     #encode_fd_sat_plan("navigation", "5x5", 8)
 
-    #encode_fd_sat_plan("inventory", "1", 8)
+    #encode_fd_sat_plan("inventory", "1", 7)
     #encode_fd_sat_plan("inventory", "2", 8)
