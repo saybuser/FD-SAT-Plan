@@ -23,7 +23,7 @@ iii) Compilation to CNF: The toolkit [11] is called in fd_sat_plan.py to write t
 
 iv) Solver: Any off-the-shelf SAT solver works. In our paper [1], we used Glucose SAT solver [5].
 
-Example bnn.txt and normalization.txt files are provided for navigation domain. Therefore to run the planner, you will only need iii) and iv).
+Example bnn.txt and normalization.txt files are provided for navigation and inventory domains. Therefore to run the planner, you will only need iii) and iv).
 
 ## Running FD-SAT-Plan
 
