@@ -27,9 +27,9 @@ Example bnn.txt and normalization.txt files are provided for navigation and inve
 
 ## Running FD-SAT-Plan
 
-python fd_maxsat_plan.py
+fd_maxsat_plan.py -d domain -i instance -h horizon
 
-./glucose-syrup-4.1/simp/glucose ./domain_instance_horizon.cnf ./domain_instance_horizon.output
+Example: python fd_maxsat_plan.py -d navigation -i 3x3 -h 4
 
 ## References
 [1] Buser Say, Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](./bnn-planning-factored.pdf). In 27th IJCAI-ECAI, 2018.
