@@ -278,8 +278,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
                     negativeInputLiterals = [-i for i in positiveInputLiterals]
                     VARINDEX, formula = addCardNetworkBinaryActivation(negativeInputLiterals, negative_threshold, formula, VARINDEX, -y[(s,t+1)])
 
-    formula.writeCNF(domain+str(horizon)+'.wcnf')
-    formula.writeCNF(domain+str(horizon)+'.cnf', hard=True)
+    formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.wcnf')
+    formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.cnf', hard=True)
     
     print ''
     print "Vars: %d" % formula.num_vars
