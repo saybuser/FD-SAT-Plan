@@ -289,6 +289,8 @@ def encode_fd_sat_plan(domain, instance, horizon):
     print "Max Weight: %d" % formula.top_weight
     print ''
 
+    return
+
 def addAtMostKSeq(x, k, formula, VARINDEX): # Sinz (2005 encoding)
     
     n = len(x)
