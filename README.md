@@ -11,7 +11,7 @@ I always look for ways to improve the runtime performance and memory efficiency 
 
 i) cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] with O(nk) variables and clauses instead of cardinality networks [6] with O(nlog<sub>2</sub>k<sup>2</sup>) variables and clauses). 
 
-ii) cardinality constraints (i.e., sum_1..i..n x_i >= k) are 'flipped' (i.e., sum_1..i..n -x_i <= n-k) when k > n/2.
+ii) cardinality constraints (i.e., sum<sub>1..i..n</sub> x<sub>i</sub> >= k) are 'flipped' (i.e., sum<sub>1..i..n</sub> -x<sub>i</sub> <= n-k) when k > n/2.
 
 ## Dependencies
 
