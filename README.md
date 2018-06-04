@@ -35,6 +35,10 @@ Example: python fd_maxsat_plan.py -d navigation -i 3x3 -h 4
 
 FD-SAT-Plan can also be used to verify different properties of BNNs by setting horizon -h to 1.
 
+## Citation
+
+If you are using FD-SAT-Plan, please cite the original paper [1].
+
 ## References
 [1] Buser Say, Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](./bnn-planning-factored.pdf). In 27th IJCAI-ECAI, 2018.
 
