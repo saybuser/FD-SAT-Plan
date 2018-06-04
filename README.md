@@ -9,7 +9,7 @@ Figure 1: Visualization of the learning and planning framework presented in [2] 
 
 I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
 
-i) cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] with O(nk) variables and clauses instead of cardinality networks [6] with O(nlog_2k^2) variables and clauses). 
+i) cardinality networks [6] with bi-directional clauses are currently used to replace the sequential cardinality [7] constraints used in [1]. Similar to [8], the cardinality constraints are conjoined with equivalence constraints (Note that [8] uses sequential counters [7] with O(nk) variables and clauses instead of cardinality networks [6] with O(nlog<sub>2</sub>k<sup>2</sup>) variables and clauses). 
 
 ii) cardinality constraints (i.e., sum_1..i..n x_i >= k) are 'flipped' (i.e., sum_1..i..n -x_i <= n-k) when k > n/2.
 
