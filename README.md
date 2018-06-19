@@ -27,9 +27,9 @@ ii) Training BNN: The toolkit [11] is used to train BNNs. The final training par
 
 iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to get commandline arguments and to write the list of literals into the DIMACS CNF format.
 
-iv) Solver: Any off-the-shelf (weighted) SAT solver works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[6] is used.
+iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[6] is used.
 
-Example bnn.txt, normalization.txt files are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv).
+Example bnn.txt, normalization.txt and domain files (under translation folder) are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv).
 
 ## Running FD-SAT-Plan
 
