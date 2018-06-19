@@ -19,6 +19,8 @@ iii) includes parsers for domain files that read in pseudo-boolean expressions o
 
 iv) handles reward functions with pseudo-boolean expressions and can call any off-the-shelf Weighted Partial MaxSat solver.
 
+v) can make use of known transition functions (i.e., the transition function for a subset of state variables can be provided as input - see Inventory Control example).
+
 ## Dependencies
 
 i) Data collection (input to training BNN [4]): Data is collected using the RDDL-based domain simulator [10]. 
