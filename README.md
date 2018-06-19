@@ -29,7 +29,7 @@ iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to get com
 
 iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[6] is used.
 
-Example bnn.txt, normalization.txt and domain files (under translation folder) are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv).
+Example bnn.txt, normalization.txt and domain files (under translation folder) are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv). For i) any domain simulator and for ii) any BNN training toolkit works.
 
 ## Running FD-SAT-Plan
 
