@@ -7,13 +7,15 @@ Figure 1: Visualization of the learning and planning framework presented in [2] 
 
 ## Improvements
 
-I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance, ease-of-use and capabilities of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
 
 i) cardinality networks [7] with bi-directional clauses are currently used to replace the sequential cardinality [8] constraints used in [1]. Similar to [9], the cardinality constraints are conjoined with equivalence constraints (Note that [9] uses sequential counters [8] with O(nk) variables and clauses instead of cardinality networks [7] with O(nlog<sub>2</sub>k<sup>2</sup>) variables and clauses). 
 
 ii) cardinality constraints (i.e., sum<sub>1..i..n</sub> x<sub>i</sub> >= k) are 'flipped' (i.e., sum<sub>1..i..n</sub> -x<sub>i</sub> <= n-k) when k > n/2.
 
 iii) parser for pseudo-boolean constraints of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
+
+iv) ability to handle reward functions with pseudo-boolean expressions with the use of weighted SAT solvers.
 
 ## Dependencies
 
@@ -23,7 +25,7 @@ ii) Training BNN: The toolkit [11] is used to train BNNs. The final training par
 
 iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to get commandline arguments and to write the list of literals into the DIMACS CNF format.
 
-iv) Solver: Any off-the-shelf (weighted) SAT solver works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) MAXHs weighted MaxSAT solver is used.
+iv) Solver: Any off-the-shelf (weighted) SAT solver works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[6] is used.
 
 Example bnn.txt, normalization.txt files are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv).
 
