@@ -15,7 +15,7 @@ ii) cardinality constraints (i.e., sum<sub>1..i..n</sub> x<sub>i</sub> >= k) are
 
 iii) parser for pseudo-boolean constraints of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
 
-iv) ability to handle reward functions with pseudo-boolean expressions with the use of weighted SAT solvers.
+iv) ability to handle reward functions with pseudo-boolean expressions and the use of weighted MaxSAT solvers.
 
 ## Dependencies
 
