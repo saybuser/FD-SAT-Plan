@@ -7,15 +7,17 @@ Figure 1: Visualization of the learning and planning framework presented in [2] 
 
 ## Improvements
 
-I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance, ease-of-use and capabilities of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
+I always look for ways to improve the runtime performance and memory efficiency of FD-SAT-Plan. Since the publication [1], the performance of FD-SAT-Plan has significantly (1-2 orders of magnitude!) improved due to more compact encodings of the binarized activation functions. Namely: 
 
 i) cardinality networks [7] with bi-directional clauses are currently used to replace the sequential cardinality [8] constraints used in [1]. Similar to [9], the cardinality constraints are conjoined with equivalence constraints (Note that [9] uses sequential counters [8] with O(nk) variables and clauses instead of cardinality networks [7] with O(nlog<sub>2</sub>k<sup>2</sup>) variables and clauses). 
 
 ii) cardinality constraints (i.e., sum<sub>1..i..n</sub> x<sub>i</sub> >= k) are 'flipped' (i.e., sum<sub>1..i..n</sub> -x<sub>i</sub> <= n-k) when k > n/2.
 
-iii) parser for pseudo-boolean constraints of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
+Moreover, FD-SAT-Plan
 
-iv) ability to handle reward functions with pseudo-boolean expressions and the use of weighted MaxSAT solvers.
+iii) includes parsers for domain files that read in pseudo-boolean expressions of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
+
+iv) has the ability to handle reward functions with pseudo-boolean expressions and can call any off-the-shelf Weighted Partial MaxSat solver.
 
 ## Dependencies
 
