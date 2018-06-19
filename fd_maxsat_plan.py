@@ -50,60 +50,101 @@ def readNormalization(directory, layers):
 
     return normalization
 
-def encode_fd_sat_plan(domain, instance, horizon):
+def readInitial(directory):
     
-    weights, layers = readBNN("./bnn/bnn_"+domain+"_"+instance+".txt")
-    normalization = readNormalization("./normalization/normalization_"+domain+"_"+instance+".txt", layers)
-    nHiddenLayers = len(layers)-1
-    literals = []
-    VARINDEX = 1
+    initial = []
+    initialFile = open(directory,"r")
+    data = initialFile.read().splitlines()
+    
+    for dat in data:
+        initial.append(dat.split(","))
+
+    return initial
+
+def readGoals(directory):
+    
+    goals = []
+    goalsFile = open(directory,"r")
+    data = goalsFile.read().splitlines()
+    
+    for dat in data:
+        goals.append(dat.split(","))
+
+    return goals
+
+def readConstraints(directory):
+    
+    constraints = []
+    constraintsFile = open(directory,"r")
+    data = constraintsFile.read().splitlines()
+    
+    for dat in data:
+        constraints.append(dat.split(","))
+
+    return constraints
+
+def readTransitions(directory):
+    
+    transitions = []
+    transitionsFile = open(directory,"r")
+    data = transitionsFile.read().splitlines()
+    
+    for dat in data:
+        transitions.append(dat.split(","))
+    
+    return transitions
+
+def readReward(directory):
+    
+    reward = []
+    rewardFile = open(directory,"r")
+    data = rewardFile.read()
+    
+    reward = data.split(",")
+    
+    return reward
+
+def readVariables(directory):
     
     A = []
     S = []
-    SPrime = []
     
-    #navigation
-    if domain == "navigation":
-        if instance == "3x3":
-            A = ['move-east', 'move-north', 'move-south', 'move-west']
-            S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]']
-            SPrime = S
-        elif instance == "4x3":
-            A = ['move-east', 'move-north', 'move-south', 'move-west']
-            S = ['robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
-            SPrime = S
-        elif instance == "4x4":
-            A = ['move-east', 'move-north', 'move-south', 'move-west']
-            S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]']
-            SPrime = S
-        elif instance == "5x5":
-            A = ['move-east', 'move-north', 'move-south', 'move-west']
-            S = ['robot-at[$x21| $y6]', 'robot-at[$x21| $y12]', 'robot-at[$x21| $y15]', 'robot-at[$x21| $y20]', 'robot-at[$x21| $y25]', 'robot-at[$x14| $y6]', 'robot-at[$x14| $y12]', 'robot-at[$x14| $y15]', 'robot-at[$x14| $y20]', 'robot-at[$x14| $y25]', 'robot-at[$x9| $y6]', 'robot-at[$x9| $y12]', 'robot-at[$x9| $y15]', 'robot-at[$x9| $y20]', 'robot-at[$x9| $y25]', 'robot-at[$x6| $y6]',  'robot-at[$x6| $y12]', 'robot-at[$x6| $y15]', 'robot-at[$x6| $y20]', 'robot-at[$x6| $y25]', 'robot-at[$x3| $y6]',  'robot-at[$x3| $y12]', 'robot-at[$x3| $y15]', 'robot-at[$x3| $y20]', 'robot-at[$x3| $y25]']
-            SPrime = S
-        else:
-            print 'Instance not recongnized!'
-    elif domain == "inventory":
-        if instance == "1":
-            A = ['resupply[$c1]']
-            S = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1', 'month_bit_1']
-            SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
-        elif instance == "2":
-            A = ['resupply[$c1]']
-            S = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1', 'month_bit_2', 'month_bit_1']
-            SPrime = ['threshold_met[$c1]', 'quant[$c1]_bit_4', 'quant[$c1]_bit_3', 'quant[$c1]_bit_2', 'quant[$c1]_bit_1']
-        else:
-            print 'Instance not recongnized!'
-    elif domain == "sysadmin":
-        if instance == "5":
-            A = ['reboot[$c1]', 'reboot[$c2]', 'reboot[$c3]', 'reboot[$c4]', 'reboot[$c5]']
-            S = ['running[$c1]', 'running[$c2]', 'running[$c3]', 'running[$c4]', 'running[$c5]', 'age[$c1]_bit_2', 'age[$c1]_bit_1', 'age[$c2]_bit_2', 'age[$c2]_bit_1', 'age[$c3]_bit_2', 'age[$c3]_bit_1', 'age[$c4]_bit_2', 'age[$c4]_bit_1', 'age[$c5]_bit_2', 'age[$c5]_bit_1']
-            SPrime = S
-        else:
-            print 'Instance not recongnized!'
-    else:
-        print 'Domain not recongnized!'
-        return
+    variablesFile = open(directory,"r")
+    data = variablesFile.read().splitlines()
+    
+    for dat in data:
+        variables = dat.split(",")
+        for var in variables:
+            if "action: " in var:
+                A.append(var.replace("action: ",""))
+            else:
+                S.append(var.replace("state: ",""))
 
+    return A, S
+
+def encode_fd_sat_plan(domain, instance, horizon, optimize):
+    
+    weights, layers = readBNN("./bnn/bnn_"+domain+"_"+instance+".txt")
+    
+    normalization = readNormalization("./normalization/normalization_"+domain+"_"+instance+".txt", layers)
+    
+    initial = readInitial("./translation/initial_"+domain+"_"+instance+".txt")
+    goals = readGoals("./translation/goals_"+domain+"_"+instance+".txt")
+    constraints = readConstraints("./translation/constraints_"+domain+"_"+instance+".txt")
+    A, S = readVariables("./translation/pvariables_"+domain+"_"+instance+".txt")
+    
+    nHiddenLayers = len(layers)-1
+    VARINDEX = 1
+    
+    SPrime = S[:layers[len(layers)-1][1]] #SPrime = S Sometimes, you can also assume this is true.
+    
+    transitions = []
+    if len(SPrime) < len(S):
+        transitions = readTransitions("./translation/transitions_"+domain+"_"+instance+".txt")
+    reward = []
+    if optimize == "True":
+        reward = readReward("./translation/reward_"+domain+"_"+instance+".txt")
+    
     formula = OptimizedLevelWeightedFormula()
 
     # Create vars for each action a, time step t
@@ -134,91 +175,103 @@ def encode_fd_sat_plan(domain, instance, horizon):
                 nameZ[VARINDEX] = (d,w,t)
                 VARINDEX += 1
 
-    # Hard clauses
-
-    if domain == "navigation":
-        # Set mutual exclusion on actions
-        for t in range(horizon):
-            actionLiterals = []
-            for a in A:
-                actionLiterals.append(x[(a,t)])
-            VARINDEX, formula = addAtMostKSeq(actionLiterals, 1, formula, VARINDEX)
-
-        # Set one-hot encoding on states
-        for t in range(horizon+1):
-            stateLiterals = []
-            for s in S:
-                stateLiterals.append(y[(s,t)])
-            VARINDEX, formula = addExactlyKSeq(stateLiterals, 1, formula, VARINDEX)
-    elif domain == "inventory":
-        # Meet monthly demand threshold
-        for s in S:
-            if s == 'threshold_met[$c1]':
-                for t in range(1,horizon+1):
-                    formula.addClause([y[(s,t)]])
-            elif s == 'month_bit_1':
-                for t in range(1,horizon+1):
-                    if t % 2 == 0:
-                        formula.addClause([-y[(s,t)]])
+    # Constraints
+    for t in range(horizon+1):
+        for constraint in constraints:
+            variables = constraint[:-2]
+            literals = []
+            if set(A).isdisjoint(variables) or t < horizon: # for the last time step, only consider constraints that include states variables-only
+                for var in variables:
+                    if var in A or var[1:] in A:
+                        if var[0] == "~":
+                            literals.append(-x[(var[1:],t)])
+                        else:
+                            literals.append(x[(var,t)])
                     else:
-                        formula.addClause([y[(s,t)]])
-            elif s == 'month_bit_2':
-                for t in range(1,horizon+1):
-                    if t % 4 < 2:
-                        formula.addClause([-y[(s,t)]])
-                    else:
-                        formula.addClause([y[(s,t)]])
-    elif domain == "sysadmin":
-        # Meet all computers must be running
-        for s in S:
-            if s == 'running[$c1]' or s == 'running[$c2]' or s == 'running[$c3]' or s == 'running[$c4]' or s == 'running[$c5]':
-                for t in range(1,horizon+1):
-                    formula.addClause([y[(s,t)]])
+                        if var[0] == "~":
+                            literals.append(-y[(var[1:],t)])
+                        else:
+                            literals.append(y[(var,t)])
+                RHS = int(constraint[len(constraint)-1])
+                if "<=" == constraint[len(constraint)-2]:
+                    VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+                elif ">=" == constraint[len(constraint)-2]:
+                    literals = [-i for i in literals]
+                    RHS = len(literals) - RHS
+                    VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+                else:
+                    VARINDEX, formula = addExactlyKSeq(literals, RHS, formula, VARINDEX)
 
-        # Resource constraint on actions
-        for t in range(horizon):
-            actionLiterals = []
-            for a in A:
-                actionLiterals.append(x[(a,t)])
-            VARINDEX, formula = addAtMostKSeq(actionLiterals, int(instance)-2, formula, VARINDEX)
+    # Known Transitions
+    for t in range(horizon):
+        for transition in transitions:
+            variables = transition[:-2]
+            literals = []
+            for var in variables:
+                if var in A or var[1:] in A:
+                    if var[0] == "~":
+                        literals.append(-x[(var[1:],t)])
+                    else:
+                        literals.append(x[(var,t)])
+                else:
+                    if var[0] == "~":
+                        if var[len(var)-1] == "'":
+                            literals.append(-y[(var[1:-1],t+1)])
+                        else:
+                            literals.append(-y[(var[1:],t)])
+                    else:
+                        if var[len(var)-1] == "'":
+                            literals.append(y[(var[:-1],t+1)])
+                        else:
+                            literals.append(y[(var,t)])
+            RHS = int(transition[len(transition)-1])
+            if "<=" == transition[len(transition)-2]:
+                VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+            elif ">=" == transition[len(transition)-2]:
+                literals = [-i for i in literals]
+                RHS = len(literals) - RHS
+                VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+            else:
+                VARINDEX, formula = addExactlyKSeq(literals, RHS, formula, VARINDEX)
 
     # Set initial state
-    for s in S:
-        if domain == "navigation":
-            if instance == "3x3" and s == 'robot-at[$x14| $y20]':
-                formula.addClause([y[(s,0)]])
-            elif instance == "4x3" and  s == 'robot-at[$x14| $y12]':
-                formula.addClause([y[(s,0)]])
-            elif instance == "4x4" and  s == 'robot-at[$x14| $y6]':
-                formula.addClause([y[(s,0)]])
-            elif instance == "5x5" and  s == 'robot-at[$x14| $y6]':
-                formula.addClause([y[(s,0)]])
-        elif domain == "inventory":
-            formula.addClause([-y[(s,0)]])
-        elif domain == "sysadmin":
-            for s in S:
-                if s == 'running[$c1]' or s == 'running[$c2]' or s == 'running[$c3]' or s == 'running[$c4]' or s == 'running[$c5]':
-                    formula.addClause([y[(s,0)]])
+    for init in initial:
+        variables = init[:-2]
+        literals = []
+        for var in variables:
+            if var[0] == "~":
+                literals.append(-y[(var[1:],0)])
+            else:
+                literals.append(y[(var,0)])
+        RHS = int(init[len(init)-1])
+        if "<=" == init[len(init)-2]:
+            VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+        elif ">=" == init[len(init)-2]:
+            literals = [-i for i in literals]
+            RHS = len(literals) - RHS
+            VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
         else:
-            formula.addClause([-y[(s,0)]])
+            VARINDEX, formula = addExactlyKSeq(literals, RHS, formula, VARINDEX)
 
     # Set goal state
-    for s in S:
-        if domain == "navigation":
-            if instance == "3x3" and s == 'robot-at[$x14| $y12]':
-                formula.addClause([y[(s,horizon)]])
-            elif instance == "4x3" and s == 'robot-at[$x14| $y20]':
-                formula.addClause([y[(s,horizon)]])
-            elif instance == "4x4" and s == 'robot-at[$x14| $y20]':
-                formula.addClause([y[(s,horizon)]])
-            elif instance == "5x5" and s == 'robot-at[$x14| $y25]':
-                formula.addClause([y[(s,horizon)]])
-        elif domain == "inventory":
-            continue
-        elif domain == "sysadmin":
-            continue
+    for goal in goals:
+        variables = goal[:-2]
+        literals = []
+        for var in variables:
+            if var[0] == "~":
+                literals.append(-y[(var[1:],horizon)])
+            else:
+                literals.append(y[(var,horizon)])
+        RHS = int(goal[len(goal)-1])
+        if "<=" == goal[len(goal)-2]:
+            VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
+        elif ">=" == goal[len(goal)-2]:
+            literals = [-i for i in literals]
+            RHS = len(literals) - RHS
+            VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
         else:
-            formula.addClause([-y[(s,horizon)]])
+            VARINDEX, formula = addExactlyKSeq(literals, RHS, formula, VARINDEX)
+
 
     # Set node activations
     for t in range(horizon):
@@ -263,14 +316,11 @@ def encode_fd_sat_plan(domain, instance, horizon):
                 else:
                     if positive_threshold < negative_threshold:
                         VARINDEX, formula = addCardNetworkBinaryActivation(positiveInputLiterals, positive_threshold, formula, VARINDEX, z[(d,out,t)])
-                        #VARINDEX, literals = addBinaryActivationSeq(positiveInputLiterals, positive_threshold, literals, VARINDEX, z[(d,out,t)])
-                        #VARINDEX, literals = addAtLeastBinaryActivationPar(positiveInputLiterals, positive_threshold, literals, VARINDEX, z[(d,out,t)])
-                        #VARINDEX, literals = addAtLeastBinaryActivationPar(negativeInputLiterals, negative_threshold, literals, VARINDEX, -z[(d,out,t)])
                     else:
                         negativeInputLiterals = [-i for i in positiveInputLiterals]
                         VARINDEX, formula = addCardNetworkBinaryActivation(negativeInputLiterals, negative_threshold, formula, VARINDEX, -z[(d,out,t)])
 
-    # Set next state
+    # Predict the next state using BNNs
     for t in range(horizon):
         d = nHiddenLayers
         for out, s in enumerate(SPrime):
@@ -296,22 +346,34 @@ def encode_fd_sat_plan(domain, instance, horizon):
             else:
                 if positive_threshold < negative_threshold:
                     VARINDEX, formula = addCardNetworkBinaryActivation(positiveInputLiterals, positive_threshold, formula, VARINDEX, y[(s,t+1)])
-                    #VARINDEX, literals = addBinaryActivationSeq(positiveInputLiterals, positive_threshold, literals, VARINDEX, y[(s,t+1)])
-                    #VARINDEX, literals = addAtLeastBinaryActivationPar(positiveInputLiterals, positive_threshold, literals, VARINDEX, y[(s,t+1)])
-                    #VARINDEX, literals = addAtLeastBinaryActivationPar(negativeInputLiterals, negative_threshold, literals, VARINDEX, -y[(s,t+1)])
                 else:
                     negativeInputLiterals = [-i for i in positiveInputLiterals]
                     VARINDEX, formula = addCardNetworkBinaryActivation(negativeInputLiterals, negative_threshold, formula, VARINDEX, -y[(s,t+1)])
 
-    formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.wcnf')
-    formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.cnf', hard=True)
-    
+    if optimize == "True":
+        for t in range(horizon):
+            for var in reward:
+                if var in A or var[1:] in A:
+                    if var[0] == "~":
+                        formula.addClause([-x[(var[1:],t)]], 1, 1)
+                    else:
+                        formula.addClause([x[(var,t)]], 1, 1)
+                else:
+                    if var[0] == "~":
+                        formula.addClause([-y[(var[1:],t+1)]], 1, 1)
+                    else:
+                        formula.addClause([y[(var,t+1)]], 1, 1)
+
     print ''
     print "Vars: %d" % formula.num_vars
     print "Clauses: %d" % formula.num_clauses
-    #print "Soft: %d" % len(formula.getSoftClauses())
     print "Hard: %d" % len(formula.getHardClauses())
-    print "Max Weight: %d" % formula.top_weight
+    if optimize == "True":
+        print "Soft: %d" % len(formula.getSoftClauses())
+        print "Max Weight: %d" % formula.top_weight
+        formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.wcnf')
+    else:
+        formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.cnf', hard=True)
     print ''
 
     return
@@ -319,6 +381,18 @@ def encode_fd_sat_plan(domain, instance, horizon):
 def addAtMostKSeq(x, k, formula, VARINDEX): # Sinz (2005 encoding)
     
     n = len(x)
+    
+    if n == 1:
+        if k >= 1:
+            return VARINDEX, formula
+        else:
+            x = [-i for i in x]
+            formula.addClause(x)
+        return VARINDEX, formula
+    elif n - k == 1:
+        x = [-i for i in x]
+        formula.addClause(x)
+        return VARINDEX, formula
     
     # Create the vars for  partial sum bits
     s = {}
@@ -515,6 +589,7 @@ if __name__ == '__main__':
     setDomain = False
     setInstance = False
     setHorizon = False
+    setObjective = False
     for arg in myargs:
         if arg == "-d":
             domain = myargs[(arg)]
@@ -525,16 +600,24 @@ if __name__ == '__main__':
         elif arg == "-h":
             horizon = myargs[(arg)]
             setHorizon = True
+        elif arg == "-o":
+            optimize = myargs[(arg)]
+            setObjective = True
 
-    if setDomain and setInstance and setHorizon:
-        encode_fd_sat_plan(domain, instance, int(horizon))
-        os.system("./glucose-syrup-4.1/simp/glucose ./"+domain+"_"+instance+"_"+horizon+".cnf ./"+domain+"_"+instance+"_"+horizon+".output")
+    if setDomain and setInstance and setHorizon and setObjective:
+        encode_fd_sat_plan(domain, instance, int(horizon), optimize)
+        if optimize == "True":
+            os.system("maxhs "+domain+"_"+instance+"_"+horizon+".wcnf > "+domain+"_"+instance+"_"+horizon+".output")
+        else:
+            os.system("./glucose-syrup-4.1/simp/glucose ./"+domain+"_"+instance+"_"+horizon+".cnf ./"+domain+"_"+instance+"_"+horizon+".output")
     elif not setDomain:
-        print 'Domain not provided.'
+        print 'Domain is not provided.'
     elif not setInstance:
-        print 'Instance not provided.'
+        print 'Instance is not provided.'
+    elif not setHorizon:
+        print 'Horizon is not provided.'
     else:
-        print 'Horizon not provided.'
+        print 'Optimization setting is not provided.'
 
 
     #encode_fd_sat_plan("navigation", "3x3", 4)
