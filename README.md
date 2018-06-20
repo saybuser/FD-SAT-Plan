@@ -45,7 +45,7 @@ FD-SAT-Plan can also be used to verify different properties of BNNs by setting h
 
 ## Known Limitations
 
-i) Input files in translation folder only accepts pseudo-boolean constraints/expressions in the form of: sum<sub>1..i..n</sub> x<sub>i</sub> ? k where ? can be <=, >= or ==. I am currently using a RDDL-to-translation parser to produce the files in the translation folder.
+i) Input files in translation folder only accepts pseudo-boolean constraints/expressions in the form of: sum<sub>1..i..n</sub> x<sub>i</sub> ? k where ? can be <=, >= or ==.
 
 ii) Reward currently accepts weighted unit soft clauses.
 
