@@ -266,7 +266,6 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
         else:
             VARINDEX, formula = addExactlyKSeq(literals, RHS, formula, VARINDEX)
 
-
     # Set node activations
     for t in range(horizon):
         for d in range(nHiddenLayers):
