@@ -43,6 +43,12 @@ Example: python fd_maxsat_plan.py -d navigation -i 3x3 -h 4 -o False
 
 FD-SAT-Plan can also be used to verify different properties of BNNs by setting horizon -h to 1.
 
+## Known Limitations
+
+i) Input files in translation folder only accepts pseudo-boolean constraints/expressions in the form of: sum<sub>1..i..n</sub> x<sub>i</sub> ? k where ? can be <=, >= or ==. I am currently using a RDDL-to-translation parser to produce the files in the translation folder.
+
+ii) Reward currently accepts weighted unit soft clauses.
+
 ## Citation
 
 If you are using FD-SAT-Plan, please cite the papers [1,2].
