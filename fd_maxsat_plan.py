@@ -359,12 +359,12 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                         formula.addClause([y[(var,t+1)]], 1, 1)
 
     print ''
-    print "Vars: %d" % formula.num_vars
-    print "Clauses: %d" % formula.num_clauses
-    print "Hard: %d" % len(formula.getHardClauses())
+    print "Number of Variables: %d" % formula.num_vars
+    print "Number of Clauses: %d" % formula.num_clauses
+    print "Number of Hard Clauses: %d" % len(formula.getHardClauses())
     if optimize == "True":
-        print "Soft: %d" % len(formula.getSoftClauses())
-        print "Max Weight: %d" % formula.top_weight
+        print "Number of Soft Clauses: %d" % len(formula.getSoftClauses())
+        print "Maximum Weight: %d" % formula.top_weight
         formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.wcnf')
     else:
         formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.cnf', hard=True)
