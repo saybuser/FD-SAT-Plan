@@ -149,30 +149,24 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
 
     # Create vars for each action a, time step t
     x = {}
-    nameX = {}
     for a in A:
         for t in range(horizon):
             x[(a,t)] = VARINDEX
-            nameX[VARINDEX] = (a,t)
             VARINDEX += 1
 
     # Create vars for each state a, time step t
     y = {}
-    nameY = {}
     for s in S:
         for t in range(horizon+1):
             y[(s,t)] = VARINDEX
-            nameY[VARINDEX] = (s,t)
             VARINDEX += 1
 
     # Create vars for each activation node z at depth d, width w, time step t
     z = {}
-    nameZ = {}
     for t in range(horizon):
         for d in range(nHiddenLayers):
             for w in range(layers[d][1]):
                 z[(d,w,t)] = VARINDEX
-                nameZ[VARINDEX] = (d,w,t)
                 VARINDEX += 1
 
     # Constraints
