@@ -17,7 +17,7 @@ Moreover, FD-SAT-Plan
 
 iii) includes parsers for domain files that read in pseudo-boolean expressions of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
 
-iv) handles reward functions with pseudo-boolean expressions and can call any off-the-shelf Weighted Partial MaxSat solver.
+iv) handles reward functions and can call any off-the-shelf Weighted Partial MaxSat solver.
 
 v) can make use of known transition functions (i.e., the transition function for a subset of state variables can be provided as input - see Inventory Control example).
 
