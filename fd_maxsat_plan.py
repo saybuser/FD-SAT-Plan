@@ -156,18 +156,10 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
     nHiddenLayers = len(layers)-1
     VARINDEX = 1
     
-    print(A)
-    print(AData)
-    print(S)
-    print(SData)
-    print(SLabel)
-    
-    SPrime = SLabel
-    
-    #SPrime = S[:layers[len(layers)-1][1]] #SPrime = S Sometimes, you can also assume this is true.
+    #SLabel = S[:layers[len(layers)-1][1]] #SLabel = S Sometimes, you can also assume this is true.
     
     transitions = []
-    if len(SPrime) < len(S):
+    if len(SLabel) < len(S):
         transitions = readTransitions("./translation/transitions_"+domain+"_"+instance+".txt")
     reward = []
     if optimize == "True":
@@ -344,7 +336,7 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
     # Predict the next state using BNNs
     for t in range(horizon):
         d = nHiddenLayers
-        for out, s in enumerate(SPrime):
+        for out, s in enumerate(SLabel):
             positiveInputLiterals = []
             
             layersize = 0
