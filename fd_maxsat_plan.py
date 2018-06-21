@@ -107,7 +107,10 @@ def readReward(directory):
 def readVariables(directory):
     
     A = []
+    AData = []
     S = []
+    SData = []
+    SLabel = []
     
     variablesFile = open(directory,"r")
     data = variablesFile.read().splitlines()
@@ -115,12 +118,29 @@ def readVariables(directory):
     for dat in data:
         variables = dat.split(",")
         for var in variables:
-            if "action: " in var:
-                A.append(var.replace("action: ",""))
+            if "action" in var:
+                if "data" in var:
+                    AData.append(var.replace("action_data: ",""))
+                    A.append(var.replace("action_data: ",""))
+                else:
+                    A.append(var.replace("action: ",""))
             else:
-                S.append(var.replace("state: ",""))
+                if "data" in var:
+                    if "label" in var:
+                        SData.append(var.replace("state_data_label: ",""))
+                        SLabel.append(var.replace("state_data_label: ",""))
+                        S.append(var.replace("state_data_label: ",""))
+                    else:
+                        SData.append(var.replace("state_data: ",""))
+                        S.append(var.replace("state_data: ",""))
+                else:
+                    if "label" in var:
+                        SLabel.append(var.replace("state_label: ",""))
+                        S.append(var.replace("state_label: ",""))
+                    else:
+                        S.append(var.replace("state: ",""))
 
-    return A, S
+    return A, AData, S, SData, SLabel
 
 def encode_fd_sat_plan(domain, instance, horizon, optimize):
     
@@ -131,12 +151,20 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
     initial = readInitial("./translation/initial_"+domain+"_"+instance+".txt")
     goals = readGoals("./translation/goals_"+domain+"_"+instance+".txt")
     constraints = readConstraints("./translation/constraints_"+domain+"_"+instance+".txt")
-    A, S = readVariables("./translation/pvariables_"+domain+"_"+instance+".txt")
+    A, AData, S, SData, SLabel = readVariables("./translation/pvariables_"+domain+"_"+instance+".txt")
     
     nHiddenLayers = len(layers)-1
     VARINDEX = 1
     
-    SPrime = S[:layers[len(layers)-1][1]] #SPrime = S Sometimes, you can also assume this is true.
+    print(A)
+    print(AData)
+    print(S)
+    print(SData)
+    print(SLabel)
+    
+    SPrime = SLabel
+    
+    #SPrime = S[:layers[len(layers)-1][1]] #SPrime = S Sometimes, you can also assume this is true.
     
     transitions = []
     if len(SPrime) < len(S):
@@ -275,15 +303,15 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                 layersize = 0
                 
                 if d == 0: # input is state or actions
-                    for inp, a in enumerate(A):
+                    for inp, a in enumerate(AData):
                         if weights[(d, inp, out)] > 0:
                             positiveInputLiterals.append(x[(a,t)])
                             layersize += 1
                         elif weights[(d, inp, out)] < 0:
                             positiveInputLiterals.append(-x[(a,t)])
                             layersize += 1
-                    for i, s in enumerate(S):
-                        inp = i + len(A)
+                    for i, s in enumerate(SData):
+                        inp = i + len(AData)
                         if weights[(d, inp, out)] > 0:
                             positiveInputLiterals.append(y[(s,t)])
                             layersize += 1
