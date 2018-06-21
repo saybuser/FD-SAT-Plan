@@ -633,12 +633,11 @@ if __name__ == '__main__':
         print 'Optimization setting is not provided.'
 
 
-    #encode_fd_sat_plan("navigation", "3x3", 4)
-    #encode_fd_sat_plan("navigation", "4x3", 6)
-    #encode_fd_sat_plan("navigation", "4x4", 5)
-    #encode_fd_sat_plan("navigation", "5x5", 8)
+    #encode_fd_sat_plan("navigation", "3x3", 4, "False")
+    #encode_fd_sat_plan("navigation", "4x4", 5, "False")
+    #encode_fd_sat_plan("navigation", "5x5", 8, "False")
 
-    #encode_fd_sat_plan("inventory", "1", 7)
-    #encode_fd_sat_plan("inventory", "2", 8)
+    #encode_fd_sat_plan("inventory", "1", 7, "True")
+    #encode_fd_sat_plan("inventory", "2", 8, "True")
 
-    #encode_fd_sat_plan("sysadmin", "5", 4)
+    #encode_fd_sat_plan("sysadmin", "5", 4, "False")
