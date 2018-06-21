@@ -118,15 +118,15 @@ def readVariables(directory):
     for dat in data:
         variables = dat.split(",")
         for var in variables:
-            if "action" in var:
-                if "data" in var:
+            if "action:" in var or "action_data:" in var:
+                if "_data:" in var:
                     AData.append(var.replace("action_data: ",""))
                     A.append(var.replace("action_data: ",""))
                 else:
                     A.append(var.replace("action: ",""))
             else:
-                if "data" in var:
-                    if "label" in var:
+                if "_data:" in var or "_data_label:" in var:
+                    if "_label:" in var:
                         SData.append(var.replace("state_data_label: ",""))
                         SLabel.append(var.replace("state_data_label: ",""))
                         S.append(var.replace("state_data_label: ",""))
@@ -134,7 +134,7 @@ def readVariables(directory):
                         SData.append(var.replace("state_data: ",""))
                         S.append(var.replace("state_data: ",""))
                 else:
-                    if "label" in var:
+                    if "_label:" in var:
                         SLabel.append(var.replace("state_label: ",""))
                         S.append(var.replace("state_label: ",""))
                     else:
