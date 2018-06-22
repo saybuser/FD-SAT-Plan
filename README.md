@@ -76,4 +76,4 @@ If you are using FD-SAT-Plan, please cite the papers [1,2].
 
 [11] Matthieu Courbariaux. BinaryNet. https://github.com/MatthieuCourbariaux/BinaryNet
 
-[12] Christian Muise. KR Toolkit: Knowledge Representation AI Toolkit. https://bitbucket.org/haz/krtoolkit/wiki/Home
+[12] Christian Muise. KRRT: Knowledge Representation and Reasoning Toolkit. https://bitbucket.org/haz/krtoolkit/wiki/Home
