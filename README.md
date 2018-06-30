@@ -27,7 +27,7 @@ i) Data collection (input to training BNN [4]): Data is collected using the RDDL
 
 ii) Training BNN: The toolkit [11] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
-iii) Compilation to CNF: The toolkit [12] is called in fd_maxsat_plan.py to write the list of literals into the DIMACS CNF format.
+iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to write the list of literals into the DIMACS CNF format.
 
 iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [5]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[6] is used.
 
@@ -35,9 +35,9 @@ For i) any domain simulator and for ii) any BNN training toolkit works. Example 
 
 ## Running FD-SAT-Plan
 
-fd_maxsat_plan.py -d domain -i instance -h horizon -o optimize
+fd_sat_plan.py -d domain -i instance -h horizon -o optimize
 
-Example: python fd_maxsat_plan.py -d navigation -i 3x3 -h 4 -o False
+Example: python fd_sat_plan.py -d navigation -i 3x3 -h 4 -o False
 
 ## Verification Task
 
