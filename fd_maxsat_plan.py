@@ -1,4 +1,3 @@
-from krrt.utils import get_opts
 from krrt.sat.CNF import OptimizedLevelWeightedFormula
 
 import math
@@ -595,9 +594,23 @@ def addCardNetworkBinaryActivation(x, p, formula, VARINDEX, z): # Asin 2011 enco
     
     return VARINDEX, formula
 
+def get_args():
+    
+    import sys
+    argv = sys.argv
+    
+    myargs = {}
+    
+    for index, arg in enumerate(argv):
+        if arg[0] == '-':
+            myargs[arg] = argv[index+1]
+
+    return myargs
+
 if __name__ == '__main__':
+    
     import os
-    myargs, flags = get_opts()
+    myargs = get_args()
     
     setDomain = False
     setInstance = False
