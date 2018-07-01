@@ -97,9 +97,10 @@ def readReward(directory):
     
     reward = []
     rewardFile = open(directory,"r")
-    data = rewardFile.read()
+    data = rewardFile.read().splitlines()
     
-    reward = data.split(",")
+    for dat in data:
+        reward.append(dat.split(","))
     
     return reward
 
@@ -364,17 +365,17 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
 
     if optimize == "True":
         for t in range(horizon):
-            for var in reward:
+            for var, weight in reward:
                 if var in A or var[1:] in A:
                     if var[0] == "~":
-                        formula.addClause([-x[(var[1:],t)]], 1, 1)
+                        formula.addClause([-x[(var[1:],t)]], float(weight), 1)
                     else:
-                        formula.addClause([x[(var,t)]], 1, 1)
+                        formula.addClause([x[(var,t)]], float(weight), 1)
                 else:
                     if var[0] == "~":
-                        formula.addClause([-y[(var[1:],t+1)]], 1, 1)
+                        formula.addClause([-y[(var[1:],t+1)]], float(weight), 1)
                     else:
-                        formula.addClause([y[(var,t+1)]], 1, 1)
+                        formula.addClause([y[(var,t+1)]], float(weight), 1)
 
     print ''
     print "Number of Variables: %d" % formula.num_vars
