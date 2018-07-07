@@ -52,7 +52,7 @@ i) Input files in translation folder only accepts pseudo-boolean constraints/exp
 If you are using FD-SAT-Plan, please cite the papers [1,2].
 
 ## References
-[1] Buser Say, Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](https://www.ijcai.org/proceedings/2018/0669.pdf). In 27th IJCAI, pages 4815-4821, 2018.
+[1] Buser Say and Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](https://www.ijcai.org/proceedings/2018/0669.pdf). In 27th IJCAI, pages 4815-4821, 2018.
 
 [2] Buser Say, Ga Wu, Yu Qing Zhou, and Scott Sanner. [Nonlinear hybrid planning with deep net learned transition models and mixed-integer linear programming](http://static.ijcai.org/proceedings-2017/0104.pdf). In 26th IJCAI, pages 750–756, 2017.
 
@@ -62,13 +62,13 @@ If you are using FD-SAT-Plan, please cite the papers [1,2].
 
 [5] Gilles Audemard and Laurent Simon. Lazy Clause Exchange Policy for Parallel SAT Solvers, pages 197–205. Springer Int. Publishing, 2014.
 
-[6] Jessica Davies, Fahiem Bacchus. Solving maxsat by solving a sequence of simpler sat instances. Principles and Practice of Constraint Programming, pages 225–239, 2011.
+[6] Jessica Davies and Fahiem Bacchus. Solving maxsat by solving a sequence of simpler sat instances. Principles and Practice of Constraint Programming, pages 225–239, 2011.
 
-[7] Roberto Asin, Robert Nieuwenhuis, Albert Oliveras, Enric Rodriguez-Carbonell, Cardinality Networks and their Applications. International Conference on Theory and Applications of Satisfiability Testing, pages 167-180, 2009.
+[7] Roberto Asin, Robert Nieuwenhuis, Albert Oliveras and Enric Rodriguez-Carbonell, Cardinality Networks and their Applications. International Conference on Theory and Applications of Satisfiability Testing, pages 167-180, 2009.
 
 [8] Carsten Sinz. Towards an Optimal CNF Encoding of Boolean Cardinality Constraints, pages 827–831. Springer Berlin Heidelberg, Berlin, Heidelberg, 2005.
 
-[9] Nina Narodytska, Shiva Prasad Kasiviswanathan, Leonid Ryzhyk, Mooly Sagiv, Toby Walsh. Verifying Properties of Binarized Deep Neural Networks. In 32nd AAAI, pages 6615-6624, 2018.
+[9] Nina Narodytska, Shiva Prasad Kasiviswanathan, Leonid Ryzhyk, Mooly Sagiv and Toby Walsh. Verifying Properties of Binarized Deep Neural Networks. In 32nd AAAI, pages 6615-6624, 2018.
 
 [10] Scott Sanner. Relational dynamic influence diagram language (rddl): Language description. 2010.
 
