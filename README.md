@@ -47,6 +47,12 @@ FD-SAT-Plan can also be used to verify different properties of BNNs by setting h
 
 i) Input files in translation folder only accepts pseudo-boolean constraints/expressions in the form of: sum<sub>1..i..n</sub> x<sub>i</sub> ? k where ? can be <=, >= or ==.
 
+## Summary
+
+| Action Space | State Space  | DNN Type | Global Constraints  | Reward Optimization | Known Transition Functions |
+| :-: | :-: | :-: | :-: | :-: | :-: | 
+| Discrete and Continuous (upto fixed-bit precision) | Discrete and Continuous (upto fixed-bit precision) | Fully-connected BNNs | Yes, Pseudo-Boolean | Yes, Pseudo-Boolean | Yes, Pseudo-Boolean |
+
 ## Citation
 
 If you are using FD-SAT-Plan, please cite the papers [1,2].
