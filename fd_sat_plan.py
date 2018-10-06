@@ -111,6 +111,7 @@ def readVariables(directory):
     S = []
     SData = []
     SLabel = []
+    Aux = []
     
     variablesFile = open(directory,"r")
     data = variablesFile.read().splitlines()
@@ -124,7 +125,7 @@ def readVariables(directory):
                     A.append(var.replace("action_data: ",""))
                 else:
                     A.append(var.replace("action: ",""))
-            else:
+            elif "state:" in var or "state_data:" in var or "state_label:" in var or "state_data_label:" in var:
                 if "_data:" in var or "_data_label:" in var:
                     if "_label:" in var:
                         SData.append(var.replace("state_data_label: ",""))
@@ -139,8 +140,10 @@ def readVariables(directory):
                         S.append(var.replace("state_label: ",""))
                     else:
                         S.append(var.replace("state: ",""))
+            else:
+                Aux.append(var.replace("auxiliary: ",""))
 
-    return A, AData, S, SData, SLabel
+    return A, AData, S, SData, SLabel, Aux
 
 def encode_fd_sat_plan(domain, instance, horizon, optimize):
     
@@ -151,7 +154,7 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
     initial = readInitial("./translation/initial_"+domain+"_"+instance+".txt")
     goals = readGoals("./translation/goals_"+domain+"_"+instance+".txt")
     constraints = readConstraints("./translation/constraints_"+domain+"_"+instance+".txt")
-    A, AData, S, SData, SLabel = readVariables("./translation/pvariables_"+domain+"_"+instance+".txt")
+    A, AData, S, SData, SLabel, Aux = readVariables("./translation/pvariables_"+domain+"_"+instance+".txt")
     
     nHiddenLayers = len(layers)-1
     VARINDEX = 1
@@ -174,11 +177,18 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
             x[(a,t)] = VARINDEX
             VARINDEX += 1
 
-    # Create vars for each state a, time step t
+    # Create vars for each state s, time step t
     y = {}
     for s in S:
         for t in range(horizon+1):
             y[(s,t)] = VARINDEX
+            VARINDEX += 1
+
+    # Create vars for each auxilary variable aux, time step t
+    v = {}
+    for aux in Aux:
+        for t in range(horizon+1):
+            v[(aux,t)] = VARINDEX
             VARINDEX += 1
 
     # Create vars for each activation node z at depth d, width w, time step t
@@ -190,22 +200,28 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                 VARINDEX += 1
 
     # Constraints
+    negA = ["~"+a for a in A]
     for t in range(horizon+1):
         for constraint in constraints:
             variables = constraint[:-2]
             literals = []
-            if set(A).isdisjoint(variables) or t < horizon: # for the last time step, only consider constraints that include states variables-only
+            if (set(A).isdisjoint(variables) and set(negA).isdisjoint(variables)) or t < horizon: # for the last time step, only consider constraints that include states variables-only
                 for var in variables:
                     if var in A or var[1:] in A:
                         if var[0] == "~":
                             literals.append(-x[(var[1:],t)])
                         else:
                             literals.append(x[(var,t)])
-                    else:
+                    elif var in S or var[1:] in S:
                         if var[0] == "~":
                             literals.append(-y[(var[1:],t)])
                         else:
                             literals.append(y[(var,t)])
+                    else:
+                        if var[0] == "~":
+                            literals.append(-v[(var[1:],t)])
+                        else:
+                            literals.append(v[(var,t)])
                 RHS = int(constraint[len(constraint)-1])
                 if "<=" == constraint[len(constraint)-2]:
                     VARINDEX, formula = addAtMostKSeq(literals, RHS, formula, VARINDEX)
@@ -227,6 +243,11 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                         literals.append(-x[(var[1:],t)])
                     else:
                         literals.append(x[(var,t)])
+                elif var in Aux or var[1:] in Aux:
+                    if var[0] == "~":
+                        literals.append(-v[(var[1:],t)])
+                    else:
+                        literals.append(v[(var,t)])
                 else:
                     if var[0] == "~":
                         if var[len(var)-1] == "'":
@@ -371,11 +392,16 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                         formula.addClause([-x[(var[1:],t)]], float(weight), 1)
                     else:
                         formula.addClause([x[(var,t)]], float(weight), 1)
-                else:
+                elif var in S or var[1:] in S:
                     if var[0] == "~":
                         formula.addClause([-y[(var[1:],t+1)]], float(weight), 1)
                     else:
                         formula.addClause([y[(var,t+1)]], float(weight), 1)
+                else:
+                    if var[0] == "~":
+                        formula.addClause([-v[(var[1:],t+1)]], float(weight), 1)
+                    else:
+                        formula.addClause([v[(var,t+1)]], float(weight), 1)
 
     print ''
     print "Number of Variables: %d" % formula.num_vars
@@ -654,5 +680,4 @@ if __name__ == '__main__':
     #encode_fd_sat_plan("inventory", "1", 7, "True")
     #encode_fd_sat_plan("inventory", "2", 8, "True")
 
-    #encode_fd_sat_plan("sysadmin", "4", 4, "False")
     #encode_fd_sat_plan("sysadmin", "5", 4, "False")
