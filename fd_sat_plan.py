@@ -389,19 +389,37 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
             for var, weight in reward:
                 if var in A or var[1:] in A:
                     if var[0] == "~":
-                        formula.addClause([-x[(var[1:],t)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([x[(var[1:],t)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([-x[(var[1:],t)]], float(weight), 1)
                     else:
-                        formula.addClause([x[(var,t)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([-x[(var,t)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([x[(var,t)]], float(weight), 1)
                 elif var in S or var[1:] in S:
                     if var[0] == "~":
-                        formula.addClause([-y[(var[1:],t+1)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([y[(var[1:],t+1)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([-y[(var[1:],t+1)]], float(weight), 1)
                     else:
-                        formula.addClause([y[(var,t+1)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([-y[(var,t+1)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([y[(var,t+1)]], float(weight), 1)
                 else:
                     if var[0] == "~":
-                        formula.addClause([-v[(var[1:],t+1)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([v[(var[1:],t+1)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([-v[(var[1:],t+1)]], float(weight), 1)
                     else:
-                        formula.addClause([v[(var,t+1)]], float(weight), 1)
+                        if weight[0] == "-":
+                            formula.addClause([-v[(var,t+1)]], -1.0*float(weight), 1)
+                        else:
+                            formula.addClause([v[(var,t+1)]], float(weight), 1)
 
     print ''
     print "Number of Variables: %d" % formula.num_vars
