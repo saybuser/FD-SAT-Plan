@@ -23,11 +23,11 @@ v) can make use of known transition functions (i.e., the transition function for
 
 ## Dependencies
 
-i) Data collection (input to training BNN [5]): Data is collected using the RDDL-based domain simulator [11]. 
+i) Data collection (input to training BNN [5]): Data is collected using the RDDL-based domain simulator [10]. 
 
-ii) Training BNN: The toolkit [12] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
+ii) Training BNN: The toolkit [11] is used to train BNNs. The final training parameters were recorded into bnn.txt and normalization.txt files.
 
-iii) Compilation to CNF: The toolkit [13] is called in fd_sat_plan.py to write the list of literals into the DIMACS CNF format.
+iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to write the list of literals into the DIMACS CNF format.
 
 iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [6]. For FD-SAT-Plan+ (i.e., with reward considerations) Weighted Partial MaxSat solver[7] is used.
 
