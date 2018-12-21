@@ -60,7 +60,7 @@ If you are using FD-SAT-Plan, please cite the papers [1,2,3].
 ## References
 [1] Buser Say and Scott Sanner. [Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](https://www.ijcai.org/proceedings/2018/0669.pdf). In 27th IJCAI, pages 4815-4821, 2018.
 
-[2] Buser Say and Scott Sanner. [Compact and Efficient Encodings for Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](https://arxiv.org/pdf/1811.10433.pdf). In Arvix arXiv:1811.10433, 2018.
+[2] Buser Say and Scott Sanner. [Compact and Efficient Encodings for Planning in Factored State and Action Spaces with Learned Binarized Neural Network Transition Models](https://arxiv.org/pdf/1811.10433.pdf). In arXiv preprint arXiv:1811.10433, 2018.
 
 [3] Buser Say, Ga Wu, Yu Qing Zhou, and Scott Sanner. [Nonlinear hybrid planning with deep net learned transition models and mixed-integer linear programming](http://static.ijcai.org/proceedings-2017/0104.pdf). In 26th IJCAI, pages 750–756, 2017.
 
