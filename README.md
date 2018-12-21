@@ -17,9 +17,9 @@ Moreover, FD-SAT-Plan
 
 iii) includes parsers for domain files that read in pseudo-boolean expressions of form: sum<sub>1..i..n</sub> x<sub>i</sub> <= k. See translation folder for more details.
 
-iv) handles reward functions and can call any off-the-shelf Weighted Partial MaxSat solver [2].
+iv) handles reward functions and can call any off-the-shelf Weighted Partial MaxSat solver.
 
-v) can make use of known transition functions (i.e., the transition function for a subset of state variables can be provided as input - see Inventory Control example) [2].
+v) can make use of known transition functions (i.e., the transition function for a subset of state variables can be provided as input - see Inventory Control example).
 
 ## Dependencies
 
@@ -29,7 +29,7 @@ ii) Training BNN: The toolkit [11] is used to train BNNs. The final training par
 
 iii) Compilation to CNF: The toolkit [12] is called in fd_sat_plan.py to write the list of literals into the DIMACS CNF format.
 
-iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [6]. For FD-SAT-Plan+ [2] (i.e., with reward considerations) Weighted Partial MaxSat solver[7] is used.
+iv) Solver: Any off-the-shelf SAT solver or Weighted Partial MaxSat works. In our paper [1], we used Glucose SAT solver [6]. For FD-SAT-Plan+ [2] (i.e., with reward considerations) Weighted Partial MaxSat solver [7] is used.
 
 For i) any domain simulator and for ii) any BNN training toolkit works. Example bnn.txt, normalization.txt and domain files (under translation folder) are provided for navigation, inventory and sysadmin domains. Therefore to run the planner, you will only need iii) and iv).
 
