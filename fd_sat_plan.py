@@ -374,9 +374,9 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
             negative_threshold = layersize - positive_threshold + 1
             
             if positive_threshold >= layersize + 1:
-                literals.append([-y[(s,t+1)]])
+                formula.addClause([-y[(s,t+1)]])
             elif negative_threshold >= layersize + 1:
-                literals.append([y[(s,t+1)]])
+                formula.addClause([y[(s,t+1)]])
             else:
                 if positive_threshold < negative_threshold:
                     VARINDEX, formula = addCardNetworkBinaryActivation(positiveInputLiterals, positive_threshold, formula, VARINDEX, y[(s,t+1)])
