@@ -145,6 +145,49 @@ def readVariables(directory):
 
     return A, AData, S, SData, SLabel, Aux
 
+def readSolution(directory, A, horizon, x, x_inverse, optimize):
+    
+    solutionFile = open(directory,"r")
+    data = solutionFile.read().splitlines()
+    
+    solution_line = data
+    
+    solution_status = -1
+    solution = {}
+    
+    if optimize == "True":
+        for dat in data:
+            if dat[0] == 's':
+                if dat[2:15] == "UNSATISFIABLE":
+                    solution_status = 0
+                    return solution_status, solution
+                elif dat[2:15] == "OPTIMUM FOUND":
+                    solution_status = 1
+            elif dat[0] == 'v':
+                solution_line = dat[2:]
+                break
+    else:
+        for dat in data:
+            if dat[:5] == "UNSAT":
+                solution_status = 0
+                return solution_status, solution
+            elif len(dat) > 0:
+                solution_status = 1
+                solution_line = dat
+                break
+
+    if solution_status > -1:
+
+        solution_index = solution_line.split(" ")[:len(A)*horizon]
+    
+        for index in solution_index:
+            if int(index) > 0:
+                solution[x[x_inverse[(int(index))]]] = 1
+            else:
+                solution[x[x_inverse[-1*(int(index))]]] = 0
+
+    return solution_status, solution
+
 def encode_fd_sat_plan(domain, instance, horizon, optimize):
     
     weights, layers = readBNN("./bnn/bnn_"+domain+"_"+instance+".txt")
@@ -172,9 +215,11 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
 
     # Create vars for each action a, time step t
     x = {}
+    x_inverse = {}
     for a in A:
         for t in range(horizon):
             x[(a,t)] = VARINDEX
+            x_inverse[(VARINDEX)] = (a,t)
             VARINDEX += 1
 
     # Create vars for each state s, time step t
@@ -421,7 +466,8 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
                         else:
                             formula.addClause([v[(var,t+1)]], float(weight), 1)
 
-    print ''
+    print("")
+    
     print "Number of Variables: %d" % formula.num_vars
     print "Number of Clauses: %d" % formula.num_clauses
     print "Number of Hard Clauses: %d" % len(formula.getHardClauses())
@@ -431,7 +477,31 @@ def encode_fd_sat_plan(domain, instance, horizon, optimize):
         formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.wcnf')
     else:
         formula.writeCNF(domain+"_"+instance+"_"+str(horizon)+'.cnf', hard=True)
-    print ''
+
+    print("")
+
+    if optimize == "True":
+        os.system("maxhs "+domain+"_"+instance+"_"+str(horizon)+".wcnf > "+domain+"_"+instance+"_"+str(horizon)+".output")
+    else:
+        os.system("./glucose-syrup-4.1/simp/glucose ./"+domain+"_"+instance+"_"+str(horizon)+".cnf > "+domain+"_"+instance+"_"+str(horizon)+".log ./"+domain+"_"+instance+"_"+str(horizon)+".output")
+
+    solution_status, solX = readSolution("./"+domain+"_"+instance+"_"+str(horizon)+".output", A, horizon, x, x_inverse, optimize)
+
+    if solution_status == 1:
+        if optimize == "True":
+            print("An optimal plan w.r.t. the given BNN is found:")
+        else:
+            print("A plan w.r.t. the given BNN is found:")
+        for t in range(horizon):
+            for a in A:
+                if(solX[x[(a,t)]] + 0.000001 >= 1.0):
+                    print("%s at time: %d" % (a,t))
+    elif solution_status == 0:
+        print("No plans w.r.t. the given BNN exists.")
+    else:
+        print("Planning is interrupted.")
+
+    print("")
 
     return
 
@@ -677,10 +747,6 @@ if __name__ == '__main__':
 
     if setDomain and setInstance and setHorizon and setObjective:
         encode_fd_sat_plan(domain, instance, int(horizon), optimize)
-        if optimize == "True":
-            os.system("maxhs "+domain+"_"+instance+"_"+horizon+".wcnf > "+domain+"_"+instance+"_"+horizon+".output")
-        else:
-            os.system("./glucose-syrup-4.1/simp/glucose ./"+domain+"_"+instance+"_"+horizon+".cnf ./"+domain+"_"+instance+"_"+horizon+".output")
     elif not setDomain:
         print 'Domain is not provided.'
     elif not setInstance:
